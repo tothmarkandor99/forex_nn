@@ -24,13 +24,13 @@ def get_ct():
     file.write(str(ctr))
   return ctr
 
-SEQ_LEN = 500
+SEQ_LEN = 300
 FUTURE_PERIOD_PREDICT = 15
 EPOCHS = 1000
 BATCH_SIZE = 32
 COUNTER = get_ct()
 TIMEFRAME = MT5_TIMEFRAME_M1
-RATE_NR = 200000
+RATE_NR = 10000
 NAME = f"NR{COUNTER}-{SEQ_LEN}-SEQ-{FUTURE_PERIOD_PREDICT}-PRED-{TIMEFRAME}-TFRAM-{RATE_NR}-RATES"
 
 MT5Initialize()
@@ -39,7 +39,7 @@ MT5WaitForTerminal()
 print(MT5TerminalInfo())
 print(MT5Version())
 
-rates = MT5CopyRatesFromPos('EURUSD', TIMEFRAME, 0, RATE_NR)
+rates = MT5CopyRatesFromPos('EURUSD', TIMEFRAME, 0, 100000)
 
 ratelist = []
 for rate in rates:
@@ -93,8 +93,8 @@ del data["filtered15"]
 
 print ("Splitting dataset")
 times = data.index.values
-last_5pct = times[-int(0.05*len(data))]
-validation_data = data[(data.index >= last_5pct)]
+last_10pct = times[-int(0.05*len(data))]
+validation_data = data[(data.index >= last_10pct)]
 validation_data.reset_index(inplace=True)
 data = data[(data.index < last_10pct)]
 print ("Dataset split")
