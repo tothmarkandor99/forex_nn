@@ -1,0 +1,4 @@
+EURUSD_M5_dataset/
+lstm_big/logs
+lstm_big/models
+lstm_big/old_logs
