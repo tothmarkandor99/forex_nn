@@ -1,4 +1,3 @@
-from MetaTrader5 import *
 from datetime import date
 import pandas as pd
 from pprint import pprint
@@ -24,31 +23,17 @@ def get_ct():
     file.write(str(ctr))
   return ctr
 
-SEQ_LEN = 300
-FUTURE_PERIOD_PREDICT = 15
+SEQ_LEN = 150
+FUTURE_PERIOD_PREDICT = 10
 EPOCHS = 1000
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 COUNTER = get_ct()
-TIMEFRAME = MT5_TIMEFRAME_M1
-RATE_NR = 10000
+TIMEFRAME = 1
+RATE_NR = 200000
 NAME = f"NR{COUNTER}-{SEQ_LEN}-SEQ-{FUTURE_PERIOD_PREDICT}-PRED-{TIMEFRAME}-TFRAM-{RATE_NR}-RATES"
 
-MT5Initialize()
-MT5WaitForTerminal()
-
-print(MT5TerminalInfo())
-print(MT5Version())
-
-rates = MT5CopyRatesFromPos('EURUSD', TIMEFRAME, 0, 100000)
-
-ratelist = []
-for rate in rates:
-  ratelist.append([rate.time, rate.close])
-
-data = pd.DataFrame(ratelist, columns = ["time", "close"])
-
 #data.to_pickle('save.pkl')
-#data = pd.read_pickle('save.pkl')
+data = pd.read_pickle('save.pkl')
 
 print ("First sample: " + str(min(data["time"])))
 
